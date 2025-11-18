@@ -1,0 +1,140 @@
+/* ==== RESET & BASE ==== */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+
+/* ==== FONTS ==== */
+h1, h2, h3 { font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
+h1 { font-size: 5rem; font-weight: 900; }
+h2 { font-size: 3rem; }
+h3 { font-size: 1.8rem; }
+
+/* ==== PARTICLES BG ==== */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 1;
+}
+
+/* ==== GLITCH EFFECT ==== */
+.glitch {
+  position: relative;
+  color: #fff;
+  text-shadow: 0.05em 0 0 rgba(0,255,255,0.75),
+               -0.05em -0.025em 0 rgba(255,0,255,0.75),
+               0.025em 0.05em 0 rgba(255,255,0,0.75);
+  animation: glitch 2s infinite;
+}
+.glitch:before, .glitch:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.glitch:before { 
+  left: 2px; text-shadow: -2px 0 #ff00c8; 
+  clip: rect(44px,450px,56px,0); 
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+.glitch:after { 
+  left: -2px; text-shadow: -2px 0 #00fff9, 2px 2px #ff00c8; 
+  clip: rect(44px,450px,56px,0); 
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch {
+  0%,100% { text-shadow: 0.05em 0 0 #00fffc, -0.05em -0.025em 0 #ff00c8; }
+  14% { text-shadow: 0.05em 0 0 #00fffc, -0.05em -0.025em 0 #ff00c8; }
+  15% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.025em 0 #ff00c8; }
+  49%  { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.025em 0 #ff00c8; }
+  50%  { text-shadow: 0.025em 0.05em 0 #00fffc, 0.05em 0 0 #ff00c8; }
+  99%  { text-shadow: 0.025em 0.05em 0 #00fffc, 0.05em 0 0 #ff00c8; }
+}
+@keyframes glitch-anim { 0%,100% {clip: rect(132px,350px,101px,30px);} 20%{clip: rect(17px,350px,170px,30px);} 40%{clip: rect(150px,350px,60px,30px);} }
+@keyframes glitch-anim2 { 0%,100% {clip: rect(129px,350px,36px,30px);} 25%{clip: rect(120px,350px,90px,30px);} }
+
+/* ==== HERO ==== */
+.hero {
+  text-align: center;
+  padding: 100px 0 80px;
+}
+.hero-img {
+  width: 220px; height: 220px;
+  margin: 0 auto 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #00fffc;
+  box-shadow: 0 0 30px rgba(0,255,255,0.6);
+  position: relative;
+}
+.hero-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%) contrast(1.2);
+  transition: 0.5s;
+}
+.hero-img:hover img { filter: grayscale(0%); }
+.tagline { font-size: 2rem; margin: 20px 0; color: #00fffc; }
+.contact {
+  margin-top: 30px;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.contact a { color: #00fffc; text-decoration: none; }
+
+/* ==== SECTIONS ==== */
+.section { padding: 100px 0; }
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+  color: #00fffc;
+}
+
+/* Timeline */
+.timeline .job { margin-bottom: 50px; padding-left: 30px; border-left: 3px solid #00fffc; position: relative; }
+.timeline .job::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 0;
+  width: 16px; height: 16px;
+  background: #00fffc;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #00fffc;
+}
+.date { float: right; color: #888; font-weight: 300; }
+
+/* Cards & Grids */
+.card, .project-card {
+  background: rgba(255,255,255,0.03);
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,255,255,0.3);
+  transition: 0.4s;
+}
+.card:hover, .project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 30px rgba(0,255,255,0.4);
+}
+.skills-grid, .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap: 30px;
+}
+.skill-items { margin-top: 15px; color: #aaa; line-height: 2; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 3.5rem; }
+  .contact { flex-direction: column; }
+}
