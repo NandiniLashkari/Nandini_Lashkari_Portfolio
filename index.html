@@ -4,29 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nandini Lashkari | Immersive Technology Developer</title>
+    
+    <!-- 
+        Tailwind CSS CDN - MUST be loaded first to apply classes. 
+    -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configure Tailwind colors/theme once the library is loaded -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gray-900': '#0A0A1F', // Deep Midnight Blue/Black
+                        'gray-800': '#1A1A3A',
+                        'blue-500': '#00F2F7', // Electric Cyan
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Three.js for 3D Background - Loaded second -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Chosen Palette: Dark Mode Tech/Neon (Base: Navy/Gray-900; Accent: Electric Blue/Blue-500) -->
+    
+    <!-- Custom Styles -->
     <style>
         .active-nav {
             font-weight: 600;
-            color: #3b82f6; /* Tailwind Blue 500 */
-            border-bottom: 2px solid #3b82f6;
+            color: #00F2F7; /* Electric Cyan */
+            border-bottom: 2px solid #00F2F7;
         }
         .tab-btn.active {
-            border-bottom-color: #3b82f6;
-            color: #3b82f6;
+            border-bottom-color: #00F2F7;
+            color: #00F2F7;
             font-weight: 600;
         }
         .section-content {
-            border-bottom: 1px solid #374151; /* Gray-700 for subtle dividers */
+            border-bottom: 1px solid #1A1A3A; /* Darker Gray-800 for subtle dividers */
             position: relative; 
             z-index: 10;
         }
+        /* Neon Glow Effect on Cards */
+        .neon-shadow {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 242, 247, 0.05);
+        }
         .neon-shadow:hover {
-            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3), 0 4px 6px -2px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 15px rgba(0, 242, 247, 0.4), 0 0 5px rgba(0, 242, 247, 0.1);
             transform: translateY(-2px);
         }
+        
         /* Style for the 3D background container */
         #three-bg {
             position: fixed;
@@ -36,9 +64,9 @@
             height: 100%;
             z-index: 0;
             pointer-events: none; /* Allows clicks to pass through to content */
-            opacity: 0.2; /* Keep it subtle */
+            opacity: 0.15; /* Keep it subtle */
         }
-        /* Custom Logo Style (V7.0) */
+        /* Custom Logo Style */
         .custom-logo {
             font-family: monospace;
             display: flex;
@@ -46,12 +74,11 @@
             letter-spacing: 0.1em;
         }
         
-        /* New Logo Image Styling - Increased height for larger header */
         .header-logo-image {
             height: 3.5rem; /* h-14 (56px) for larger logo */
             width: auto;
             /* Optional: Add a subtle glow/shadow to match the theme */
-            filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5)); 
+            filter: drop-shadow(0 0 5px rgba(0, 242, 247, 0.5)); 
         }
 
     </style>
@@ -62,25 +89,22 @@
     <div id="three-bg"></div>
     
     <!-- Header & Navigation -->
-    <!-- Increased padding to py-4 (padding top/bottom 1rem) for a taller, bolder look -->
-    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm border-b border-gray-700 py-4">
+    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm border-b border-gray-800 py-4">
         <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Removed fixed height h-16, letting py-4 manage the vertical size -->
             <div class="flex justify-between items-center">
                 <!-- Logo: Stylized "NL DEV" -->
                 <div class="custom-logo">
-                    <!-- Updated to use the uploaded logo image and larger size -->
+                    <!-- Path confirmed by user for GitHub Pages structure -->
                     <img 
                         src="assets/logo_1.png" 
                         alt="Nandini Lashkari Official Logo" 
                         class="header-logo-image"
-                        onerror="this.onerror=null; this.src='https://placehold.co/150x56/1e293b/3b82f6?text=NL+Logo';"
+                        onerror="this.onerror=null; this.src='https://placehold.co/150x56/1A1A3A/00F2F7?text=NL+Logo';"
                     >
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-6">
-                        <!-- Increased text size to text-lg -->
                         <a href="#home" class="nav-link px-3 py-2 rounded-md text-lg font-medium text-gray-300 hover:text-blue-500 transition-colors" data-section="home">Home</a>
                         <a href="#projects" class="nav-link px-3 py-2 rounded-md text-lg font-medium text-gray-300 hover:text-blue-500 transition-colors" data-section="projects">Projects</a>
                         <a href="#skills" class="nav-link px-3 py-2 rounded-md text-lg font-medium text-gray-300 hover:text-blue-500 transition-colors" data-section="skills">Skills</a>
@@ -101,7 +125,7 @@
                 </div>
             </div>
         </nav>
-        <div id="mobile-menu" class="md:hidden hidden bg-gray-900/90 border-t border-gray-700">
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-900/90 border-t border-gray-800">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="nav-link mobile block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-blue-500 hover:bg-gray-800" data-section="home">Home</a>
                 <a href="#projects" class="nav-link mobile block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-blue-500 hover:bg-gray-800" data-section="projects">Projects</a>
@@ -117,27 +141,22 @@
 
         <!-- Home/Hero Section -->
         <section id="home" class="section-content min-h-[calc(100vh-4rem)] flex items-center py-16">
-            <!-- Increased spacing: space-x-12 changed to space-x-16, space-y-8 maintained for mobile -->
             <div class="w-full flex flex-col lg:flex-row items-center lg:items-start space-y-8 lg:space-y-0 lg:space-x-16">
                 
                 <!-- Profile Photo -->
                 <div class="flex-shrink-0 mt-8 lg:mt-0">
-                    <!-- Placeholder image matching the dark theme and neon accent -->
                     <img 
                         src="assets/Photo.png" 
                         alt="Nandini Lashkari Profile"
                         class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-blue-500 shadow-2xl shadow-blue-500/50 transform transition-transform hover:scale-105"
-                        onerror="this.onerror=null; this.src='https://placehold.co/200x200/1e293b/3b82f6?text=NL';"
+                        onerror="this.onerror=null; this.src='https://placehold.co/200x200/1A1A3A/00F2F7?text=NL';"
                     >
                 </div>
                 
                 <!-- Text Content -->
                 <div>
-                    <!-- Increased name size: text-5xl md:text-7xl changed to text-6xl md:text-8xl -->
                     <h1 class="text-6xl md:text-8xl font-extrabold text-white leading-tight">NANDINI LASHKARI</h1>
-                    <!-- Increased title size: text-3xl md:text-4xl changed to text-4xl md:text-5xl -->
                     <h2 class="text-4xl md:text-5xl font-semibold text-blue-500 mt-2 tracking-wide">Immersive Technology Developer</h2>
-                    <!-- Increased paragraph size and max width: text-xl changed to text-2xl, max-w-4xl changed to max-w-5xl -->
                     <p class="mt-6 text-2xl max-w-5xl text-gray-300">
                         Developer specializing in AR, VR, and WebGL, with hands-on experience in Unity, Vuforia, and AI integration. I transform complex concepts into functional, immersive applications for industry and research, bridging the gap between digital and physical realities.
                     </p>
@@ -145,11 +164,15 @@
                         <a href="assets/Nandini Lashkari Resume.pdf" download class="inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-500/50">
                             Download Resume (PDF)
                         </a>
+                        <!-- New GitHub Button -->
+                        <a href="https://github.com/NandiniLashkari" target="_blank" class="inline-block bg-gray-800 text-blue-400 font-semibold px-6 py-3 rounded-lg border border-blue-500/50 hover:bg-gray-700 transition-colors">
+                            GitHub
+                        </a>
                         <a href="https://linkedin.com/in/nandini-lashkari-861197252" target="_blank" class="inline-block bg-gray-800 text-blue-400 font-semibold px-6 py-3 rounded-lg border border-blue-500/50 hover:bg-gray-700 transition-colors">
-                            Connect on LinkedIn
+                            LinkedIn
                         </a>
                         <a href="mailto:nlashkari30@gmail.com" class="inline-block bg-gray-800 text-blue-400 font-semibold px-6 py-3 rounded-lg border border-blue-500/50 hover:bg-gray-700 transition-colors">
-                            Send Email
+                            Email
                         </a>
                     </div>
                 </div>
@@ -361,7 +384,7 @@
                             <h3 class="text-xl font-semibold text-white">Campus Outreach Officer [COO]</h3>
                             <span class="text-sm font-medium text-gray-400">01/2025 - Present</span>
                         </div>
-                        <p class="text-md text-blue-400 font-medium">10X Club Coding Ninjas, Marwadi University</p>
+                        <p class="text-md text-blue-400 font-medium">Circuitology Club, Marwadi University</p>
                     </div>
                     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
                         <div class="flex justify-between items-start">
@@ -380,6 +403,8 @@
             <p class="text-lg max-w-2xl mx-auto mb-10 text-gray-400">Let's discuss immersive technology, collaborations, or new opportunities. Feel free to reach out directly.</p>
             <div class="flex justify-center items-center flex-wrap gap-8">
                 <a href="mailto:nlashkari30@gmail.com" class="text-xl font-medium text-blue-400 hover:text-blue-300 transition-colors border-b-2 border-blue-600/50 pb-1">nlashkari30@gmail.com</a>
+                <!-- GitHub Link Added -->
+                <a href="https://github.com/NandiniLashkari" target="_blank" class="text-xl font-medium text-blue-400 hover:text-blue-300 transition-colors border-b-2 border-blue-600/50 pb-1">GitHub Profile</a>
                 <a href="https://linkedin.com/in/nandini-lashkari-861197252" target="_blank" class="text-xl font-medium text-blue-400 hover:text-blue-300 transition-colors border-b-2 border-blue-600/50 pb-1">LinkedIn Profile</a>
                 <span class="text-xl font-medium text-gray-500 hidden sm:inline">|</span>
                 <span class="text-xl font-medium text-gray-300">7990972897</span>
@@ -389,7 +414,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-700 text-gray-500 relative z-10">
+    <footer class="bg-gray-900 border-t border-gray-800 text-gray-500 relative z-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
             <p>&copy; 2025 Nandini Lashkari | Interactive SPA Portfolio</p>
         </div>
@@ -405,12 +430,13 @@
             <div class="p-6">
                 <p id="modal-description" class="text-gray-300 text-lg mb-6"></p>
                 
-                <!-- NEW: Demo Links -->
+                <!-- Demo Links -->
                 <div class="flex flex-wrap gap-4 mb-8">
-                    <a id="modal-demo-link" href="#" target="_blank" class="modal-link inline-block bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
+                    <!-- Note: Links are disabled until you provide a URL -->
+                    <a id="modal-demo-link" href="#" target="_blank" class="modal-link inline-block bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors opacity-50 pointer-events-none" title="Link not yet provided">
                         Live Demo / Video Link
                     </a>
-                    <a id="modal-repo-link" href="#" target="_blank" class="modal-link inline-block bg-gray-700 text-gray-100 font-semibold px-5 py-2 rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50">
+                    <a id="modal-repo-link" href="#" target="_blank" class="modal-link inline-block bg-gray-700 text-gray-100 font-semibold px-5 py-2 rounded-lg hover:bg-gray-600 transition-colors opacity-50 pointer-events-none" title="Link not yet provided">
                         GitHub / Source
                     </a>
                 </div>
@@ -426,7 +452,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- Three.js Background Logic (V7.0) ---
+            // --- Three.js Background Logic ---
             let scene, camera, renderer, particles, mesh;
             const container = document.getElementById('three-bg');
             let mouseX = 0, mouseY = 0;
@@ -448,7 +474,6 @@
                 const vertices = [];
                 const particleCount = 1500;
                 
-                // Corrected the loop structure to fix the SyntaxError
                 for (let i = 0; i < particleCount; i++) {
                     const x = (Math.random() - 0.5) * 400;
                     const y = (Math.random() - 0.5) * 400;
@@ -459,7 +484,7 @@
                 geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 
                 const material = new THREE.PointsMaterial({
-                    color: 0x3b82f6, // Electric Blue
+                    color: 0x00F2F7, // Electric Cyan
                     size: 0.5,
                     transparent: true,
                     opacity: 0.8,
@@ -469,20 +494,19 @@
                 particles = new THREE.Points(geometry, material);
                 scene.add(particles);
 
-                // 2. Create Wireframe Mesh (Dodecahedron - from V6 logic)
+                // 2. Create Wireframe Mesh (Dodecahedron)
                 const dodecahedronGeometry = new THREE.DodecahedronGeometry(25, 0); // Size 25
                 const wireframeMaterial = new THREE.LineBasicMaterial({
-                    color: 0x3b82f6, // Electric Blue
+                    color: 0x00F2F7, // Electric Cyan
                     linewidth: 1,
                     transparent: true,
                     opacity: 0.5
                 });
                 
-                // Create a wireframe version of the geometry
                 const wireframe = new THREE.WireframeGeometry(dodecahedronGeometry);
                 mesh = new THREE.LineSegments(wireframe, wireframeMaterial);
                 scene.add(mesh);
-                mesh.position.set(0, 0, 0); // Center the mesh
+                mesh.position.set(0, 0, 0);
                 
                 document.addEventListener('mousemove', onDocumentMouseMove, false);
                 window.addEventListener('resize', onWindowResize, false);
@@ -506,18 +530,15 @@
             function animateThree() {
                 requestAnimationFrame(animateThree);
                 
-                // Rotate particles slightly
                 particles.rotation.x += 0.0001;
                 particles.rotation.y += 0.0002;
                 
-                // Rotate the geometric mesh slowly
                 if (mesh) {
                     mesh.rotation.x += 0.001;
                     mesh.rotation.y += 0.0005;
                     mesh.rotation.z += 0.0008;
                 }
                 
-                // Make the camera follow the mouse slightly for interactivity
                 camera.position.x += (mouseX - camera.position.x) * 0.005;
                 camera.position.y += (-mouseY - camera.position.y) * 0.005;
                 camera.lookAt(scene.position);
@@ -525,41 +546,41 @@
                 renderer.render(scene, camera);
             }
 
-            // Check if three.js is loaded and initialize
+            // Check if THREE is loaded before initializing
             if (typeof THREE !== 'undefined') {
                 initThree();
             }
             
             // --- Project Modal Data & Logic ---
             const projectData = {
-                // IMPORTANT: REPLACE '#' with your actual Google Drive / Demo URL and GitHub URL
+                // IMPORTANT: Replace '#' with your actual Google Drive / Demo URL and GitHub URL
                 'ai-bot': {
                     title: 'AI InterviewBot',
                     description: 'Developed a realistic virtual interview environment to help students prepare effectively. The system features a 3D avatar and integrates with the Gemini API to generate dynamic, context-aware questions based on the user\'s resume. It includes features to simulate a strict, real-world interview experience to build user confidence and response skills.',
                     tech: ['Unity 3D', 'C#', 'Gemini API', 'three.js', 'WebGL'],
                     demoUrl: '#', // Placeholder: Replace with AI InterviewBot Demo URL
-                    repoUrl: '#'  // Placeholder: Replace with AI InterviewBot GitHub URL
+                    repoUrl: 'https://github.com/NandiniLashkari'  // Placeholder: Replace with AI InterviewBot GitHub URL
                 },
                 'ar-iot': {
                     title: 'AR + IOT Controller',
                     description: 'This project merges the physical and digital worlds by allowing users to control IOT-enabled appliances in real-time using an Augmented Reality interface. By pointing a device at an appliance, users can access digital commands overlaid on their physical space, turning simple interactions into a futuristic and intuitive experience.',
                     tech: ['Unity 3D', 'C#', 'Vuforia', 'AR', 'IOT', 'Python'],
                     demoUrl: '#', // Placeholder: Replace with AR + IOT Demo URL
-                    repoUrl: '#'  // Placeholder: Replace with AR + IOT GitHub URL
+                    repoUrl: 'https://github.com/NandiniLashkari'  // Placeholder: Replace with AR + IOT GitHub URL
                 },
                 'vr-design': {
                     title: 'VR Interior Design Application',
                     description: 'Created an immersive, VR-style walkthrough using Unity WebGL. This project simulates real-time interior customization, allowing users to move freely within a virtual space, and explore and modify layouts, furniture, and materials effortlessly, providing a powerful tool for visualization.',
                     tech: ['Unity 3D', 'WebGL', 'C#', 'VR', 'Blender'],
                     demoUrl: '#', // Placeholder: Replace with VR Interior Design Demo URL
-                    repoUrl: '#'  // Placeholder: Replace with VR Interior Design GitHub URL
+                    repoUrl: 'https://github.com/NandiniLashkari'  // Placeholder: Replace with VR Interior Design GitHub URL
                 },
                 'ar-app': {
                     title: 'Comprehensive AR Platform',
-                    description: 'Designed and built a single, unified platform that integrates all four major types of Augmented Reality (e.g., Model Targets, Area Targets, Image Targets). The application features seamless transitions between AR experiences and an intuitive UI, demonstrating how AR can transform everyday tasks and interactions.',
+                    description: 'Designed and built a single, unified platform that integrates all four major types of Augmented Reality (e.g., Model Targets, Area Target) with a seamless UI using Unity and Vuforia.',
                     tech: ['Unity 3D', 'C#', 'Vuforia', 'AR Foundation', 'Area Target', 'Model Target'],
                     demoUrl: '#', // Placeholder: Replace with AR Platform Demo URL
-                    repoUrl: '#'  // Placeholder: Replace with AR Platform GitHub URL
+                    repoUrl: 'https://github.com/NandiniLashkari'  // Placeholder: Replace with AR Platform GitHub URL
                 }
             };
 
@@ -568,7 +589,6 @@
             const modalTitle = document.getElementById('modal-title');
             const modalDescription = document.getElementById('modal-description');
             const modalTech = document.getElementById('modal-tech');
-            // New modal elements for links
             const modalDemoLink = document.getElementById('modal-demo-link');
             const modalRepoLink = document.getElementById('modal-repo-link');
 
@@ -580,26 +600,20 @@
                     modalTitle.textContent = data.title;
                     modalDescription.textContent = data.description;
                     
-                    // Set Links
-                    modalDemoLink.href = data.demoUrl;
-                    modalRepoLink.href = data.repoUrl;
-                    
-                    // Visually disable if link is placeholder '#'
-                    if (data.demoUrl === '#') {
-                        modalDemoLink.classList.add('opacity-50', 'pointer-events-none');
-                        modalDemoLink.title = 'Link not yet provided';
-                    } else {
-                        modalDemoLink.classList.remove('opacity-50', 'pointer-events-none');
-                        modalDemoLink.title = '';
-                    }
+                    // Set Links and handle disabled state
+                    const setLinkState = (element, url) => {
+                        element.href = url;
+                        if (url === '#') {
+                            element.classList.add('opacity-50', 'pointer-events-none');
+                            element.title = 'Link not yet provided';
+                        } else {
+                            element.classList.remove('opacity-50', 'pointer-events-none');
+                            element.title = '';
+                        }
+                    };
 
-                    if (data.repoUrl === '#') {
-                        modalRepoLink.classList.add('opacity-50', 'pointer-events-none');
-                        modalRepoLink.title = 'Link not yet provided';
-                    } else {
-                        modalRepoLink.classList.remove('opacity-50', 'pointer-events-none');
-                        modalRepoLink.title = '';
-                    }
+                    setLinkState(modalDemoLink, data.demoUrl);
+                    setLinkState(modalRepoLink, data.repoUrl); // Use project-specific or general GitHub URL
 
                     modalTech.innerHTML = '';
                     data.tech.forEach(techName => {
@@ -648,7 +662,6 @@
             });
 
             if (tabBtns.length > 0) {
-                // Ensure the first button is clicked on load to show its content
                 const initialTarget = tabBtns[0].dataset.target;
                 document.querySelector(initialTarget).classList.remove('hidden');
                 tabBtns[0].classList.add('active');
@@ -664,13 +677,11 @@
                 let currentSection = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    // Check if the current scroll position is past the section start
                     if (window.scrollY >= sectionTop - 100) { 
                         currentSection = section.id;
                     }
                 });
 
-                // Update desktop links
                 navLinks.forEach(link => {
                     link.classList.remove('active-nav');
                     if (link.dataset.section === currentSection) {
@@ -678,7 +689,6 @@
                     }
                 });
                 
-                // Update mobile links
                 mobileNavLinks.forEach(link => {
                     link.classList.remove('active-nav');
                     if (link.dataset.section === currentSection) {
